@@ -1,0 +1,48 @@
+{
+    "name": "focus10-monorepo",
+    "version": "1.0.0",
+    "private": true,
+    "workspaces": [
+      "Back",
+      "Front"
+    ],
+    "scripts": {
+      "install:all": "npm install",
+      "start:back": "npm --prefix Back run dev",
+      "start:front": "npm --prefix Front run dev",
+      "start:all": "concurrently \"npm run start:back\" \"npm run start:front\"",
+      "build:back": "npm --prefix Back run build",
+      "build:front": "npm --prefix Front run build",
+      "build:all": "npm run build --workspaces",
+      "lint:all": "npm run lint --workspaces"
+    },
+    "dependencies": {
+      "react": "^19.0.0",
+      "react-dom": "^19.0.0",
+      "react-router-dom": "^7.1.5",
+      "styled-components": "^6.1.15",
+      "express": "^4.21.2",
+      "@types/express": "^5.0.0"
+    },
+    "devDependencies": {
+      "@eslint/js": "^9.19.0",
+      "@types/dotenv": "^6.1.1",
+      "@types/node": "^22.13.1",
+      "@types/react": "^19.0.8",
+      "@types/react-dom": "^19.0.3",
+      "@types/react-router-dom": "^5.3.3",
+      "@types/styled-components": "^5.1.34",
+      "@vitejs/plugin-react": "^4.3.4",
+      "concurrently": "^8.0.1",
+      "eslint": "^9.19.0",
+      "eslint-plugin-react-hooks": "^5.0.0",
+      "eslint-plugin-react-refresh": "^0.4.18",
+      "globals": "^15.14.0",
+      "nodemon": "^3.1.9",
+      "ts-node": "^10.9.2",
+      "typescript": "^5.7.3",
+      "typescript-eslint": "^8.22.0",
+      "vite": "^6.1.0"
+    }
+  }
+  

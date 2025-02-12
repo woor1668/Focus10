@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Navbar from '@components/Navbar';
 
 const HomeContainer = styled.div`
+  width: 480px;
   padding: 20px;
 `;
 

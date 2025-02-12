@@ -82,11 +82,11 @@ export function useLoginForm() {
       
       try {
         await loginUser(id, password);
-        alert("회원가입 성공! 로그인해주세요.");
-        navigate("/login");
+        alert("로그인 성공! 로그인해주세요.");
+        navigate("/");
       } catch (err) {
         console.error(err);
-        setError("회원가입 실패. 다시 시도해주세요.");
+        setError("로그인 실패. 다시 시도해주세요.");
       }
     };
   

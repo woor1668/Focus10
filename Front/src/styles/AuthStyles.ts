@@ -5,7 +5,7 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 420px;
+  width: 480px;
   padding: 50px 0px;
 `;
 
@@ -68,7 +68,7 @@ export const P = styled.p`
   padding: 0;
   margin: 0;
   color: tomato;
-  font-size: clamp(0.7em, 5vw, 1em); /* 글자 크기 자동 조정 */
+  font-size: clamp(0.8em, .8vw, 1em); /* 글자 크기 자동 조정 */
   white-space: nowrap; /* 텍스트 줄바꿈 방지 */
   overflow: hidden;
   text-overflow: ellipsis;

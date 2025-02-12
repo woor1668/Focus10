@@ -35,23 +35,23 @@ export const register = async (req: Request, res: Response): Promise<void> => {
 
 export const login = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { email, password } = req.body;
+    const { id, pw } = req.body;
 
-    const user = await findUserByEmail(email);
-    if (!user) {
-      res.status(401).json({ message: "이메일 또는 비밀번호가 틀렸습니다." });
-      return;
-    }
+    // const user = await findUserByEmail(email);
+    // if (!user) {
+    //   res.status(401).json({ message: "이메일 또는 비밀번호가 틀렸습니다." });
+    //   return;
+    // }
 
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid) {
-      res.status(401).json({ message: "이메일 또는 비밀번호가 틀렸습니다." });
-      return;
-    }
+    // const isPasswordValid = await bcrypt.compare(password, user.password);
+    // if (!isPasswordValid) {
+    //   res.status(401).json({ message: "이메일 또는 비밀번호가 틀렸습니다." });
+    //   return;
+    // }
 
-    const token = jwt.sign({ userId: user.id, email: user.email }, JWT_SECRET, { expiresIn: "1h" });
+    const token = jwt.sign({ userId: id }, JWT_SECRET, { expiresIn: "1h" });
 
-    res.json({ token, user: { id: user.id, email: user.email } });
+    res.json({ token, user: { id: id } });
   } catch (error) {
     console.error("로그인 오류:", error);
     res.status(500).json({ message: "서버 오류 발생" });

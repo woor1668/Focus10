@@ -6,8 +6,6 @@ import { useLoginForm } from '@src/hooks/UseAuthForm';
 export default function Login() {
 const { id, setId, password, setPassword, error, handleSubmit, showPassword, setShowPassword} = useLoginForm();
 
-
-
   return (
     <Wrapper>
       <h2>로그인</h2>

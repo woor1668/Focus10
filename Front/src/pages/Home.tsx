@@ -1,8 +1,7 @@
-// src/pages/Home.tsx
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import Navbar from '../components/Navbar';
+import Navbar from '@components/Navbar';
 
 const HomeContainer = styled.div`
   padding: 20px;

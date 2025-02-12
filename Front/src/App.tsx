@@ -1,8 +1,8 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import styled from "styled-components";
-import Login from '@routes/Login'
-import Signup from '@routes/Signup';
-import Home from '@routes/Home';
+import Login from '@pages/Login'
+import Register from '@pages/Register';
+import Home from '@pages/Home';
 // import MyPage from '@routes/MyPage';
 // import WordWriting from '@routes/WordWriting';
 // import Speaking from '@routes/Speaking';
@@ -20,8 +20,8 @@ function App() {
       element: <Login />,
     },
     {
-      path: "/Signup",
-      element: <Signup />,
+      path: "/register",
+      element: <Register />,
     }
   ])
 

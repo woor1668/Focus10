@@ -1,32 +1,22 @@
 import { Request, Response } from "express";
-import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { findUserByEmail, createUser } from "../models/userModel";
+import { findUserByEmail, createUser, loginUser, authUser } from "@models/userModel";
 
 const JWT_SECRET = process.env.JWT_SECRET || "default_secret";
 
 export const register = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { name, email, id, pw } = req.body;
-    console.log(1111);
-    if (!email || !pw) {
-      res.status(400).json({ message: "이메일과 비밀번호를 입력하세요." });
+    const { name, email, id, pw } = req.body;   
+
+    const existingUser = await findUserByEmail(email);
+    if (existingUser) {
+      res.status(400).json({ message: "이미 가입된 이메일입니다." });
       return;
     }
 
+    await createUser(name, id, email, pw);
+
     res.status(201).json({ message: "회원가입 성공" });
-    
-
-//     const existingUser = await findUserByEmail(email);
-//     if (existingUser) {
-//       res.status(400).json({ message: "이미 가입된 이메일입니다." });
-//       return;
-//     }
-
-//     const hashedPassword = await bcrypt.hash(password, 10);
-//     await createUser(email, hashedPassword);
-
-//     res.status(201).json({ message: "회원가입 성공" });
   } catch (error) {
     console.error("회원가입 오류:", error);
     res.status(500).json({ message: "서버 오류 발생" });
@@ -35,23 +25,38 @@ export const register = async (req: Request, res: Response): Promise<void> => {
 
 export const login = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { id, pw } = req.body;
+    const { eid, pw } = req.body;
 
-    // const user = await findUserByEmail(email);
-    // if (!user) {
-    //   res.status(401).json({ message: "이메일 또는 비밀번호가 틀렸습니다." });
-    //   return;
-    // }
+    const user = await loginUser(eid, pw);
+    if (!user) {
+      res.status(400).json({ message: "존재하지 않는 계정입니다." });
+      return;
+    }
+    const uuid = user.uuid;
+    const id = user.id;
+    const token = jwt.sign({ uuid: uuid }, JWT_SECRET, { expiresIn: "1h" });
+    await authUser(uuid, token);
+    res.json({ token, user: { uuid: uuid, id: id } });
+  } catch (error) {
+    console.error("로그인 오류:", error);
+    res.status(500).json({ message: "서버 오류 발생" });
+  }
+};
 
-    // const isPasswordValid = await bcrypt.compare(password, user.password);
-    // if (!isPasswordValid) {
-    //   res.status(401).json({ message: "이메일 또는 비밀번호가 틀렸습니다." });
-    //   return;
-    // }
+export const auth = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { eid, pw } = req.body;
 
-    const token = jwt.sign({ userId: id }, JWT_SECRET, { expiresIn: "1h" });
-
-    res.json({ token, user: { id: id } });
+    const user = await loginUser(eid, pw);
+    if (!user) {
+      res.status(400).json({ message: "존재하지 않는 계정입니다." });
+      return;
+    }
+    const uuid = user.uuid;
+    const id = user.id;
+    const token = jwt.sign({ uuid: uuid }, JWT_SECRET, { expiresIn: "1h" });
+    await authUser(uuid, token);
+    res.json({ token, user: { uuid: uuid, id: id } });
   } catch (error) {
     console.error("로그인 오류:", error);
     res.status(500).json({ message: "서버 오류 발생" });

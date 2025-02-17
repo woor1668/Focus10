@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { registerUser, loginUser } from '@services/AuthService';
+import { usePopup } from "./usePopup";
 // 비밀번호 유효성 검사 함수
 
 function validatePassword(password: string): string | null {
@@ -18,6 +19,7 @@ export function useRegisterForm() {
     const [checkPw, setCheckPw] = useState<string | null>(null);
     const [showPassword, setShowPassword] = useState(false);
     const [showRePassword, setShowRePassword] = useState(false);
+    const { showAlert } = usePopup();
     const navigate = useNavigate();
     
     useEffect(() => {
@@ -43,11 +45,17 @@ export function useRegisterForm() {
       
       try {
         await registerUser(name, email, id, password);
-        alert("회원가입 성공! 로그인해주세요.");
+        await showAlert({
+          message: "회원가입 성공하였습니다.",
+          header: "성공",
+        });
         navigate("/login");
       } catch (err) {
         console.error(err);
-        setError("회원가입 실패. 다시 시도해주세요.");
+        await showAlert({
+          message: "회원가입 실패하였습니다.",
+          header: "실패",
+        });
       }
     };
   
@@ -69,6 +77,7 @@ export function useLoginForm() {
     const [password, setPassword] = useState("");
     const [error, setError] = useState<string | null>(null);
     const [showPassword, setShowPassword] = useState(false);
+    const { showAlert } = usePopup();
     const navigate = useNavigate();
   
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -82,7 +91,10 @@ export function useLoginForm() {
       
       try {
         await loginUser(id, password);
-        alert("로그인 성공! 로그인해주세요.");
+        await showAlert({
+            message: "저장되었습니다.",
+            header: "성공",
+          });
         navigate("/");
       } catch (err) {
         console.error(err);

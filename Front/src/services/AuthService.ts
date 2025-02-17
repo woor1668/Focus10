@@ -43,6 +43,24 @@ export const loginUser = async (id: string, pw: string) => {
   }
 };
 
+export const getAuth =  async (): Promise<boolean> => {
+  const token = localStorage.getItem("token");
+
+  const response = await api.get<AuthResponse>("auth/profile", {
+    headers: {
+      "Authorization": `Bearer ${token}`,
+      "Content-Type": "application/json"
+    }
+  });
+
+  if (response) {
+    return true
+  } else {
+    console.error("인증 실패");
+    return false
+  }
+};
+
 // 로그아웃 API (토큰 삭제)
 export const logoutUser = () => {
   localStorage.removeItem("token");

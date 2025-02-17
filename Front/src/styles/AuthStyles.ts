@@ -1,21 +1,25 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
-  height: 100%;
   display: flex;
-  flex-direction: column;
   align-items: center;
   width: 480px;
+  height: 100%;
   padding: 50px 0px;
-`;
+  `;
 
+export const Container = styled.div`
+  width: 100%;
+  text-align: center;
+  flex-direction: column;
+  box-shadow: 0px 0px 8px 1px rgba(0,0,0,0.5);
+  padding: 20px;
+`
 export const Form = styled.form`
-  margin-top: 50px;
-  margin-bottom: 10px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
   width: 100%;
+  gap: 20px;
 `;
 
 export const InputWrapper = styled.div`
@@ -40,10 +44,10 @@ export const Input = styled.input`
   }
 `;
 
-export const IconWrapper = styled.div`
+export const IconWrapper = styled.div<{ isClickable?: boolean }>`
   padding: 8px;
   color: #666;
-  cursor: pointer;
+  cursor: ${({ isClickable }) => (isClickable ? "pointer" : "default")};
 `;
 
 export const Button = styled.button`

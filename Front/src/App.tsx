@@ -1,73 +1,56 @@
-import { createBrowserRouter, RouterProvider, useNavigate } from "react-router-dom"
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom"
 import styled from "styled-components";
 import Login from '@pages/Login'
 import Register from '@pages/Register';
 import Home from '@pages/Home';
 import { getAuth } from "@services/AuthService";
 import { PopupProvider } from "@components/Popup";
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
+import LoadingScreen from "@components/loading-screen";
 // import MyPage from '@routes/MyPage';
 // import WordWriting from '@routes/WordWriting';
 // import Speaking from '@routes/Speaking';
 // import Conversation from '@routes/Conversation';
 
-function AuthWrapper() {
-  const navigate = useNavigate();
-  const [loading, setLoading] = useState(true);
+const ProtectedRoute = ({ element }: { element: ReactNode }) => {
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
 
   useEffect(() => {
     const checkAuth = async () => {
-      const user = await getAuth();
-      if (user) {
-        navigate("/"); // 인증된 경우 홈으로 이동
-      } else {
-        navigate("/login"); // 인증 실패 시 로그인 페이지로 이동
-      }
-      setLoading(false);
+      const authStatus = await getAuth();
+      setIsAuthenticated(authStatus);
     };
     checkAuth();
-  }, [navigate]);
+  }, []);
 
-  if (loading) return <div>Loading...</div>; // 인증 확인 중 로딩 표시
+  if (isAuthenticated === null) {
+    return <LoadingScreen />; // 인증 확인 중 로딩 표시
+  }
 
-  return null;
-}
+  return isAuthenticated ? element : <Navigate to="/login" />;
+};
 
-function App() {
+const router = createBrowserRouter([
+  { path: "/login", element: <Login /> },
+  { path: "/register", element: <Register /> },
+  { path: "/", element: <ProtectedRoute element={<Home />} /> }, // 보호된 경로 적용
+]);
 
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: (
-        <>
-          <AuthWrapper />
-          <Home />
-        </>
-      )
-    },
-    {
-      path: "/login",
-      element: <Login />,
-    },
-    {
-      path: "/register",
-      element: <Register />,
-    }
-  ])
-
-  const Wrapper = styled.div`
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-  `;
-  
+const App = () => {
   return (
-    <Wrapper>
+    <StyledWrapper>
       <PopupProvider>
         <RouterProvider router={router} />
       </PopupProvider>
-    </Wrapper>
-  )
-}
+    </StyledWrapper>
+  );
+};
 
-export default App
+const StyledWrapper = styled.div`
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export default App;

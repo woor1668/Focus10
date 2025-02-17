@@ -73,7 +73,7 @@ export function useRegisterForm() {
 }
 
 export function useLoginForm() {
-    const [id, setId] = useState("");
+    const [eid, setEid] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState<string | null>(null);
     const [showPassword, setShowPassword] = useState(false);
@@ -90,7 +90,7 @@ export function useLoginForm() {
       }
       
       try {
-        await loginUser(id, password);
+        await loginUser(eid, password);
         await showAlert({
             message: "저장되었습니다.",
             header: "성공",
@@ -103,7 +103,7 @@ export function useLoginForm() {
     };
   
     return {
-      id, setId,
+      eid, setEid,
       password, setPassword,
       error,
       showPassword, setShowPassword,

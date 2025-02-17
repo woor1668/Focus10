@@ -4,7 +4,7 @@ import { Input, Button, Wrapper, Form, InputWrapper, IconWrapper, P, Container }
 import { useLoginForm } from '@src/hooks/UseAuthForm';
 
 export default function Login() {
-const { id, setId, password, setPassword, error, handleSubmit, showPassword, setShowPassword} = useLoginForm();
+const { eid, setEid, password, setPassword, error, handleSubmit, showPassword, setShowPassword} = useLoginForm();
 
   return (
     <Wrapper>
@@ -13,7 +13,7 @@ const { id, setId, password, setPassword, error, handleSubmit, showPassword, set
         <Form onSubmit={handleSubmit}>
           <InputWrapper>
             <IconWrapper><FaIdCard /></IconWrapper>
-            <Input type="text" placeholder="아이디 또는 이메일" value={id} onChange={(e) => setId(e.target.value)} required />
+            <Input type="text" placeholder="아이디 또는 이메일" value={eid} onChange={(e) => setEid(e.target.value)} required />
           </InputWrapper>
           
           <InputWrapper>

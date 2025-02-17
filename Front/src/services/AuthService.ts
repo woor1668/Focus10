@@ -1,12 +1,10 @@
 import { api } from "./Api";
-
 interface AuthResponse {
   token: string;
   user: {
     name: string;
     email: string;
     id: string;
-    pw: string;
   };
 }
 
@@ -27,10 +25,10 @@ export const registerUser = async (name: string, email: string, id: string, pw: 
 };
 
 // 로그인 API
-export const loginUser = async (id: string, pw: string) => {
+export const loginUser = async (eid: string, pw: string) => {
   try {
     const response = await api.post<AuthResponse>("/auth/login", {
-      id,
+      eid,
       pw,
     });
     if (response.data.token) {
@@ -43,22 +41,28 @@ export const loginUser = async (id: string, pw: string) => {
   }
 };
 
-export const getAuth =  async (): Promise<boolean> => {
+// 인증 확인 API
+export const getAuth = async (): Promise<boolean> => {
   const token = localStorage.getItem("token");
-
-  const response = await api.get<AuthResponse>("auth/profile", {
-    headers: {
-      "Authorization": `Bearer ${token}`,
-      "Content-Type": "application/json"
-    }
-  });
-
-  if (response) {
-    return true
-  } else {
-    console.error("인증 실패");
-    return false
+  if (!token) {
+    console.error("인증 실패: 토큰 없음");
+    return false;
   }
+  console.log(`============ ${token}`);
+  return true;
+  // try {
+  //   const response = await api.get<AuthResponse>("/auth/profile", {
+  //     headers: {
+  //       Authorization: `Bearer ${token}`,
+  //       "Content-Type": "application/json",
+  //     },
+  //   });
+
+  //   return response.status === 200;
+  // } catch (error) {
+  //   console.error("인증 실패:", error);
+  //   return false;
+  // }
 };
 
 // 로그아웃 API (토큰 삭제)

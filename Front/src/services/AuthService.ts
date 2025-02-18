@@ -1,11 +1,7 @@
 import { api } from "./Api";
 interface AuthResponse {
   token: string;
-  user: {
-    name: string;
-    email: string;
-    id: string;
-  };
+  uuid: string;
 }
 
 // 회원가입 API
@@ -31,9 +27,9 @@ export const loginUser = async (eid: string, pw: string) => {
       eid,
       pw,
     });
-    if (response.data.token) {
-      console.log(`set token === ${response.data.token}`);
+    if (response.data) {
       localStorage.setItem("token", response.data.token);
+      localStorage.setItem("uuid", response.data.uuid);
     }
     return response.data;
   } catch (error) {

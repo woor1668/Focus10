@@ -9,9 +9,9 @@ export default function MyPage() {
       <Navbar />
       <Container>
         <h2>My Page</h2>
-        <MyApi title="OpenAI API" />
-        <MyApi title="Gemini API" />
-        <MyApi title="Claude API" />
+        <MyApi title="OpenAI" />
+        <MyApi title="Gemini" />
+        <MyApi title="Claude" />
         <MyRecords />
       </Container>
     </Wrapper>

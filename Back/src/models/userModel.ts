@@ -22,9 +22,6 @@ export const createUser = async (name: string, id: string, email: string, pw: st
 
 export const loginUser = async (eid: string, pw: string): Promise<User | null> => {
   const conn = await pool.getConnection();
-  console.log('login');
-  console.log(`id ======== ${eid}`);
-  console.log(`pw ======== ${pw}`);
   const rows = await conn.query("SELECT * FROM TB_USERS WHERE 1=1 AND (ID = ? OR EMAIL = ?) AND PASSWORD = SHA2(?, 256)", [eid, eid, pw]);
   conn.release();
   return rows.length ? rows[0] : null;

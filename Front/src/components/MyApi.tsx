@@ -1,39 +1,22 @@
-import { useState } from 'react';
-import {
-  ApiWrapper,
-  Button,
-  H,
-  HeaderRow,
-  Input,
-  InputWrapper,
-  ToggleBall,
-  ToggleSwitch,
-} from '@styles/MyPageStyles';
+import { useState } from "react";
+import { ApiWrapper, Button, H, HeaderRow, Input, InputWrapper, ToggleBall, ToggleSwitch } from "@styles/MyPageStyles";
+import { useCreateApi } from "@hooks/UseMyPage";
 
 interface MyApiProps {
   title: string;
 }
 
 export default function MyApi({ title }: MyApiProps) {
-  const [apiKey, setApiKey] = useState('');
+  const { ai, apiKey, setApiKey, handleSave } = useCreateApi(title); // title을 전달하여 ai로 설정
   const [isActive, setIsActive] = useState(false);
 
   const handleToggle = () => {
-    if (!apiKey) return; // API key가 없으면 토글 작동 X
+    if (!apiKey) return;
     setIsActive((prev) => !prev);
   };
 
-  const handleSave = () => {
-    if (!apiKey.trim()) {
-      alert(`Please enter an ${title} API key.`);
-      return;
-    }
-    alert('API Key saved!');
-    setIsActive(true);
-  };
-
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       handleSave();
     }
   };
@@ -41,7 +24,7 @@ export default function MyApi({ title }: MyApiProps) {
   return (
     <ApiWrapper>
       <HeaderRow>
-        <H>{title}</H>
+        <H>{ai}</H> {/* ai는 이제 title 값으로 자동 설정됨 */}
         <ToggleSwitch active={isActive} onClick={handleToggle} disabled={!apiKey}>
           <ToggleBall active={isActive} />
         </ToggleSwitch>
@@ -49,12 +32,12 @@ export default function MyApi({ title }: MyApiProps) {
       <InputWrapper>
         <Input
           type="text"
-          placeholder={`Enter ${title} Key`}
+          placeholder={`Enter ${ai} API Key`}
           value={apiKey}
           onChange={(e) => setApiKey(e.target.value)}
           onKeyDown={handleKeyDown}
         />
-        <Button onClick={handleSave}>Save API Key</Button>
+        <Button onClick={handleSave}>Save API</Button>
       </InputWrapper>
     </ApiWrapper>
   );

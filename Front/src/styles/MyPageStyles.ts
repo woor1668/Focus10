@@ -44,7 +44,7 @@ export const ToggleBall = styled.div<ToggleProps>`
     border-radius: 50%;
     position: absolute;
     top: 1px;
-    left: ${props => (props.active ? '27px' : '2px')};
+    left: ${props => (props.active ? '20px' : '2px')};
     transition: left 0.3s;
 `;
 

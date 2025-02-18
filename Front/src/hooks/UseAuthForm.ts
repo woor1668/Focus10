@@ -59,7 +59,6 @@ export function useRegisterForm() {
             message: "회원가입 실패하였습니다.",
             header: "실패",
           });
-        } finally {
           setLoading(false);
         }
       }
@@ -108,7 +107,6 @@ export function useLoginForm() {
         } catch (err) {
           console.error(err);
           setError("로그인 실패. 다시 시도해주세요.");
-        } finally {
           setLoading(false);
         }
       };

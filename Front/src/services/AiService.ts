@@ -9,17 +9,16 @@ interface AiResponse {
     };
   }
 
-export const CreateUsersApi = async (name: string, email: string, id: string, pw: string) => {
+export const CreateUsersApi = async (uuid: string, ai: string, apiKey: string) => {
   try {
     const response = await api.post<AiResponse>("/ai/create", {
-      name,
-      email,
-      id,
-      pw,
+      uuid,
+      ai,
+      apiKey,
     });
     return response.data;
   } catch (error) {
-    console.error("Register Error:", error);
+    console.error("create Error:", error);
     throw error;
   }
 };

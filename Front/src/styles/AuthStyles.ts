@@ -14,6 +14,7 @@ export const Container = styled.div`
   flex-direction: column;
   box-shadow: 0px 0px 8px 1px rgba(0,0,0,0.5);
   padding: 20px;
+  margin: 10px;
 `
 export const Form = styled.form`
   display: flex;

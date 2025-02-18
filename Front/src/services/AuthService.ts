@@ -32,7 +32,8 @@ export const loginUser = async (eid: string, pw: string) => {
       pw,
     });
     if (response.data.token) {
-      localStorage.setItem("token", response.data.token); // 로그인 시 토큰 저장
+      console.log(`set token === ${response.data.token}`);
+      localStorage.setItem("token", response.data.token);
     }
     return response.data;
   } catch (error) {
@@ -48,21 +49,18 @@ export const getAuth = async (): Promise<boolean> => {
     console.error("인증 실패: 토큰 없음");
     return false;
   }
-  console.log(`============ ${token}`);
-  return true;
-  // try {
-  //   const response = await api.get<AuthResponse>("/auth/profile", {
-  //     headers: {
-  //       Authorization: `Bearer ${token}`,
-  //       "Content-Type": "application/json",
-  //     },
-  //   });
-
-  //   return response.status === 200;
-  // } catch (error) {
-  //   console.error("인증 실패:", error);
-  //   return false;
-  // }
+  try {
+    const response = await api.get<AuthResponse>("/auth/auth", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+    return response.status === 200;
+  } catch (error) {
+    console.error("인증 실패:", error);
+    return false;
+  }
 };
 
 // 로그아웃 API (토큰 삭제)

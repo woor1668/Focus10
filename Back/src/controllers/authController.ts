@@ -44,21 +44,5 @@ export const login = async (req: Request, res: Response): Promise<void> => {
 };
 
 export const auth = async (req: Request, res: Response): Promise<void> => {
-  try {
-    const { eid, pw } = req.body;
-
-    const user = await loginUser(eid, pw);
-    if (!user) {
-      res.status(400).json({ message: "존재하지 않는 계정입니다." });
-      return;
-    }
-    const uuid = user.uuid;
-    const id = user.id;
-    const token = jwt.sign({ uuid: uuid }, JWT_SECRET, { expiresIn: "1h" });
-    await authUser(uuid, token);
-    res.json({ token, user: { uuid: uuid, id: id } });
-  } catch (error) {
-    console.error("로그인 오류:", error);
-    res.status(500).json({ message: "서버 오류 발생" });
-  }
+  res.status(200).json({ message: "정상 토큰" });
 };

@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { 
   Popup, PopupHeader, PopupImage, PopupMessage, 
   PopupOverlay, Button, ButtonGroup 
@@ -26,6 +26,20 @@ export const PopupProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [popup, setPopup] = useState<PopupState | null>(null);
   const [isAlertVisible, setIsAlertVisible] = useState<boolean>(false);
 
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Enter" && popup) {
+        popup.onConfirm?.(true);
+      }
+    };
+    if (popup) {
+      document.addEventListener("keydown", handleKeyDown);
+    }
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [popup]);
+    
   const showAlert = ({ message, header = "", url = "" }: { message: string; header?: string; url?: string }): Promise<void> => {
     return new Promise((resolve) => {
       setPopup({

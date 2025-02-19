@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { FaIdCard, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 import { Input, Button, Wrapper, Form, InputWrapper, IconWrapper, P, Container } from "@styles/AuthStyles";
-import { useLoginForm } from '@src/hooks/UseAuthForm';
+import { useLoginForm } from '@hooks/UseAuthForm';
 
 export default function Login() {
 const { eid, setEid, password, setPassword, error, handleSubmit, showPassword, setShowPassword} = useLoginForm();

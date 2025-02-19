@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { FaUserCircle, FaBars } from "react-icons/fa";
+import { logoutUser } from "@services/AuthService";
 
 const Nav = styled.nav`
   background: #333;
@@ -54,9 +55,10 @@ const Navbar: React.FC = () => {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
+  const handleLogout = async() => {
+    await logoutUser();
     navigate("/login");
+    
   };
 
   return (

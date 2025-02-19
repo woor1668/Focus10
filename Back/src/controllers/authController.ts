@@ -35,7 +35,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
     const uuid = user.uuid;
     const token = jwt.sign({ uuid: uuid }, JWT_SECRET, { expiresIn: "1h" });
     await authUser(uuid, token);
-    res.json({ token, uuid });
+    res.json({ token });
   } catch (error) {
     console.error("로그인 오류:", error);
     res.status(500).json({ message: "서버 오류 발생" });

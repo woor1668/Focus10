@@ -1,9 +1,10 @@
+import { createAPI, selectAPI, toggleChange } from "@controllers/aiController";
+import { getUuid } from "@middlewares/authMiddleware";
 import express from "express";
-import { register, login, auth } from "@controllers/authController";
 
 const aiRouter = express.Router();
 
-aiRouter.post("/register", register);
-aiRouter.post("/login", login);
-
+aiRouter.post('/createAPI', getUuid, createAPI);
+aiRouter.post("/selectAPI", getUuid, selectAPI);
+aiRouter.post("/toggleChange", getUuid, toggleChange);
 export default aiRouter;

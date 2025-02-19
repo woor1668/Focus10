@@ -1,6 +1,6 @@
 import { Link, Outlet } from "react-router-dom";
 import Navbar from "@components/Navbar";
-import { Container, Wrapper } from "@src/styles/HomeStyles";
+import { Container, Wrapper } from "@styles/HomeStyles";
 
 export default function Home() {
   return (

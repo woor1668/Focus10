@@ -1,19 +1,16 @@
-import { useState } from "react";
 import { ApiWrapper, Button, H, HeaderRow, Input, InputWrapper, ToggleBall, ToggleSwitch } from "@styles/MyPageStyles";
-import { useCreateApi } from "@hooks/UseMyPage";
+import { useMyApi } from "@hooks/UseMyPage";
+import { P } from "@styles/AuthStyles";
 
 interface MyApiProps {
   title: string;
+  activeApi: string;
+  setActiveApi: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export default function MyApi({ title }: MyApiProps) {
-  const { ai, apiKey, setApiKey, handleSave } = useCreateApi(title); // title을 전달하여 ai로 설정
-  const [isActive, setIsActive] = useState(false);
-
-  const handleToggle = () => {
-    if (!apiKey) return;
-    setIsActive((prev) => !prev);
-  };
+export default function MyApi({ title, activeApi, setActiveApi }: MyApiProps) {
+  const { apiKey, setApiKey, err, isValid, handleSave, handleToggle, isDisabled } = useMyApi(title, activeApi, setActiveApi);
+  const isActive = activeApi === title;
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
@@ -24,21 +21,22 @@ export default function MyApi({ title }: MyApiProps) {
   return (
     <ApiWrapper>
       <HeaderRow>
-        <H>{ai}</H> {/* ai는 이제 title 값으로 자동 설정됨 */}
-        <ToggleSwitch active={isActive} onClick={handleToggle} disabled={!apiKey}>
+        <H>{title}</H>
+        <ToggleSwitch active={isActive} onClick={handleToggle} disabled={!apiKey || !isValid || isDisabled}>
           <ToggleBall active={isActive} />
         </ToggleSwitch>
       </HeaderRow>
       <InputWrapper>
         <Input
-          type="text"
-          placeholder={`Enter ${ai} API Key`}
+          type="password"
+          placeholder={`Enter ${title} API Key`}
           value={apiKey}
           onChange={(e) => setApiKey(e.target.value)}
           onKeyDown={handleKeyDown}
         />
         <Button onClick={handleSave}>Save API</Button>
       </InputWrapper>
+      {err && <P style={{ color: "red" }}>{err}</P>}
     </ApiWrapper>
   );
 }

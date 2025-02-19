@@ -51,6 +51,15 @@ const ProfileIcon = styled(FaUserCircle)`
   cursor: pointer;
 `;
 
+const StyledLink = styled(Link)`
+  color: #fff;
+  text-decoration: none;
+
+  &:hover{
+    color: #ddd;
+  }
+`;
+
 const Navbar: React.FC = () => {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -74,9 +83,6 @@ const Navbar: React.FC = () => {
           <Link to="/">Home</Link>
         </NavItem>
         <NavItem>
-          <Link to="/my">My Page</Link>
-        </NavItem>
-        <NavItem>
           <button
             onClick={handleLogout}
             style={{ background: "none", border: "none", color: "#fff", cursor: "pointer" }}
@@ -86,8 +92,10 @@ const Navbar: React.FC = () => {
         </NavItem>
       </NavList>
 
-      {/* 우측 프로필 아이콘 */}
-      <ProfileIcon />
+      {/* 우측 프로필 아이콘 (마이 페이지 링크) */}
+      <StyledLink to="/my">
+        <ProfileIcon />
+      </StyledLink>
     </Nav>
   );
 };

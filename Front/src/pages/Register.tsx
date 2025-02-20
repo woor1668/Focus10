@@ -1,5 +1,4 @@
-import { Link } from "react-router-dom";
-import { InputWrapper, Input, Button, Wrapper, Form, IconWrapper, P, Container } from "@styles/AuthStyles";
+import { InputWrapper, Input, Button, Wrapper, Form, IconWrapper, P, Container, StyledLink } from "@styles/AuthStyles";
 import { FaUser, FaEnvelope, FaIdCard, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 import { useRegisterForm } from "@hooks/UseAuthForm";
 
@@ -46,7 +45,7 @@ export default function Register() {
         </Form>
         {error && <P>{error}</P>}
         <p>
-          계정이 있으신가요? <Link to="/login">로그인</Link>
+          계정이 있으신가요? <StyledLink to="/login">로그인</StyledLink>
         </p>
       </Container>
     </Wrapper>

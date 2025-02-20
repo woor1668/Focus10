@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
@@ -41,7 +42,7 @@ export const Input = styled.input`
   padding: 8px;
 
   &:focus {
-    border-color: #007bff;
+    border-color: #444;
   }
 `;
 
@@ -55,7 +56,7 @@ export const Button = styled.button`
   padding: 10px 16px;
   width: 100%;
   font-size: 16px;
-  background-color: #007bff;
+  background-color: #444;
   color: white;
   border: none;
   border-radius: 4px;
@@ -63,7 +64,7 @@ export const Button = styled.button`
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #0056b3;
+    background-color: #666;
   }
 `;
 
@@ -77,4 +78,13 @@ export const P = styled.p`
   white-space: nowrap; /* 텍스트 줄바꿈 방지 */
   overflow: hidden;
   text-overflow: ellipsis;
+`;
+
+export const StyledLink = styled(Link)`
+  color: #444;
+  text-decoration: none;
+
+  &:hover{
+    color: #666;
+  }
 `;

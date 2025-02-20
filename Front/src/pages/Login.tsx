@@ -1,10 +1,9 @@
-import { Link } from 'react-router-dom';
 import { FaIdCard, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
-import { Input, Button, Wrapper, Form, InputWrapper, IconWrapper, P, Container } from "@styles/AuthStyles";
+import { Input, Button, Wrapper, Form, InputWrapper, IconWrapper, Container, StyledLink } from "@styles/AuthStyles";
 import { useLoginForm } from '@hooks/UseAuthForm';
 
 export default function Login() {
-const { eid, setEid, password, setPassword, error, handleSubmit, showPassword, setShowPassword} = useLoginForm();
+const { eid, setEid, password, setPassword, handleSubmit, showPassword, setShowPassword} = useLoginForm();
 
   return (
     <Wrapper>
@@ -25,9 +24,8 @@ const { eid, setEid, password, setPassword, error, handleSubmit, showPassword, s
           </InputWrapper>
           <Button type="submit">Login</Button>
         </Form>
-        {error && <P style={{ color: "red" }}>{error}</P>}
         <p>
-          계정이 없으신가요? <Link to="/register">회원가입</Link>
+          계정이 없으신가요? <StyledLink to="/register">회원가입</StyledLink>
         </p>
       </Container>
     </Wrapper>

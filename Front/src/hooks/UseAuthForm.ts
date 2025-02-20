@@ -80,7 +80,6 @@ export function useRegisterForm() {
 export function useLoginForm() {
     const [eid, setEid] = useState("");
     const [password, setPassword] = useState("");
-    const [error, setError] = useState<string | null>(null);
     const [showPassword, setShowPassword] = useState(false);
     const [loading, setLoading] = useState(false);
     const { showAlert } = usePopup();
@@ -88,33 +87,26 @@ export function useLoginForm() {
   
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-      
-      const passwordError = validatePassword(password);
-      if (passwordError) {
-        setError(passwordError);
-        return;
-      }
-      
+
       if(!loading){
         setLoading(true);
         try {
           await loginUser(eid, password);
-          await showAlert({
-              message: "저장되었습니다.",
-              header: "성공",
-            });
           navigate("/");
         } catch (err) {
           console.error(err);
-          setError("로그인 실패. 다시 시도해주세요.");
+          await showAlert({
+            message: "잘못된 정보입니다.",
+            header: "로그인 실패",
+          });
           setLoading(false);
         }
       };
     };
+
     return {
       eid, setEid,
       password, setPassword,
-      error,
       showPassword, setShowPassword,
       handleSubmit,
     };

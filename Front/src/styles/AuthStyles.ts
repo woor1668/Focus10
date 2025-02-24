@@ -56,28 +56,7 @@ export const Button = styled.button`
   padding: 10px 16px;
   width: 100%;
   font-size: 16px;
-  background-color: #444;
-  color: white;
-  border: none;
   border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: #666;
-  }
-`;
-
-export const P = styled.p`
-  width: 100%;
-  text-align: center;
-  padding: 0;
-  margin: 0;
-  color: tomato;
-  font-size: clamp(0.8em, .8vw, 1em); /* 글자 크기 자동 조정 */
-  white-space: nowrap; /* 텍스트 줄바꿈 방지 */
-  overflow: hidden;
-  text-overflow: ellipsis;
 `;
 
 export const StyledLink = styled(Link)`
@@ -87,4 +66,27 @@ export const StyledLink = styled(Link)`
   &:hover{
     color: #666;
   }
+`;
+
+export const PwContainer = styled.div`
+`
+
+export const PwDiv = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  text-align: left;
+  padding: 5px;
+`;
+
+export const PwIcon = styled.div<{ isValid: boolean | null }>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  margin-right: 5px;
+  color: ${({ isValid }) => 
+    isValid === null ? "#AAA" : 
+    isValid ? "green" : "red"};
 `;

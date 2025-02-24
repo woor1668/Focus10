@@ -1,12 +1,12 @@
-import { createUserAPI, selectUserAPI, updateToggle } from "@models/aiModel";
+import { createAPI, selectAPI, updateToggle } from "@src/models/myPage/myApiModel";
 import { Request, Response } from "express";
 
 
-export const selectAPI = async (req: Request, res: Response): Promise<void> => {
+export const selectMyAPI = async (req: Request, res: Response): Promise<void> => {
   try {
     const { ai } = req.body; 
     const uuid = (req as any).user?.uuid;
-    const api = await selectUserAPI(uuid , ai);
+    const api = await selectAPI(uuid , ai);
 
     res.json({ api });
   } catch (error) {
@@ -15,12 +15,12 @@ export const selectAPI = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-export const createAPI = async (req: Request, res: Response): Promise<void> => {
+export const createMyAPI = async (req: Request, res: Response): Promise<void> => {
   try {
     const { ai, apiKey } = req.body;   
     const uuid = (req as any).user?.uuid;
 
-    await createUserAPI(uuid, ai, apiKey);
+    await createAPI(uuid, ai, apiKey);
 
     res.status(201).json({ message: "저장 성공" });
   } catch (error) {

@@ -1,9 +1,9 @@
-import { api } from "./Api";
-import { checkClaudeKey } from "./Claude";
-import { checkGeminiKey } from "./Gemini";
-import { checkOpenAiKey } from "./OpenAi";
+import { api } from "../Api";
+import { checkClaudeKey } from "../Claude";
+import { checkGeminiKey } from "../Gemini";
+import { checkOpenAiKey } from "../OpenAi";
 
-interface AiResponse {
+interface ApiResponse {
     api: {
       ai: string;
       api_key: string;
@@ -11,9 +11,9 @@ interface AiResponse {
     }
 }
 
-export const SelectUsersAPI = async (ai: string) => {
+export const SelectMyAPI = async (ai: string) => {
   try {
-    const response = await api.post<AiResponse>("/ai/selectAPI", {
+    const response = await api.post<ApiResponse>("/myApi/selectAPI", {
       ai
     });
     return response.data;
@@ -23,9 +23,9 @@ export const SelectUsersAPI = async (ai: string) => {
   }
 };
 
-export const CreateUsersAPI = async (ai: string, apiKey: string) => {
+export const CreateMyAPI = async (ai: string, apiKey: string) => {
   try {
-    const response = await api.post<AiResponse>("/ai/createAPI", {
+    const response = await api.post<ApiResponse>("/myApi/createAPI", {
       ai,
       apiKey,
     });
@@ -51,7 +51,7 @@ export const checkApiKeyValidityForAi = (ai: string, apiKey: string) => {
 
 export const toggleChange = async (ai: string) => {
   try {
-    const response = await api.post<AiResponse>("/ai/toggleChange", {
+    const response = await api.post<ApiResponse>("/myApi/toggleChange", {
       ai
     });
     return response.data;

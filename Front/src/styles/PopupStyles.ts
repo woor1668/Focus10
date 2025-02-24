@@ -51,12 +51,5 @@ export const ButtonGroup = styled.div`
 export const Button = styled.button`
   padding: 10px 20px;
   font-size: 24px;
-  border: none;
   border-radius: 0px 35px 35px 35px;
-  cursor: pointer;
-  background: #3A3A3A;
-  color: #fff;
-  &:hover {
-    background: #5A5A5A;
-  }
 `;

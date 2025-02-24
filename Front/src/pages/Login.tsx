@@ -1,6 +1,7 @@
-import { FaIdCard, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaIdCard } from "react-icons/fa";
 import { Input, Button, Wrapper, Form, InputWrapper, IconWrapper, Container, StyledLink } from "@styles/AuthStyles";
-import { useLoginForm } from '@hooks/UseAuthForm';
+import { useLoginForm } from '@src/hooks/UseAuthForm';
+import PasswordInput from "@src/components/Password";
 
 export default function Login() {
 const { eid, setEid, password, setPassword, handleSubmit, showPassword, setShowPassword} = useLoginForm();
@@ -14,14 +15,13 @@ const { eid, setEid, password, setPassword, handleSubmit, showPassword, setShowP
             <IconWrapper><FaIdCard /></IconWrapper>
             <Input type="text" placeholder="아이디 또는 이메일" value={eid} onChange={(e) => setEid(e.target.value)} required />
           </InputWrapper>
-          
-          <InputWrapper>
-            <IconWrapper><FaLock /></IconWrapper>
-            <Input type={showPassword ? "text" : "password"} placeholder="비밀번호" value={password} onChange={(e) => setPassword(e.target.value)} required />
-            <IconWrapper isClickable={true} onClick={() => setShowPassword(!showPassword)}>
-              {showPassword ? <FaEyeSlash /> : <FaEye />}
-            </IconWrapper>
-          </InputWrapper>
+          <PasswordInput 
+            password={password} 
+            setPassword={setPassword} 
+            showPassword={showPassword} 
+            setShowPassword={setShowPassword} 
+            placeholder="비밀번호"
+          />
           <Button type="submit">Login</Button>
         </Form>
         <p>

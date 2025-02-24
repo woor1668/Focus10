@@ -6,14 +6,14 @@ export interface API {
   apiKey: string;
 }
 
-export const selectUserAPI = async (uuid: string, ai: string): Promise<API | null> => {
+export const selectAPI = async (uuid: string, ai: string): Promise<API | null> => {
   const conn = await pool.getConnection();
   const rows = await conn.query("SELECT * FROM USERS_API WHERE UUID = ? AND AI = ?", [uuid, ai]);
   conn.release();
   return rows.length ? rows[0] : null;
 };
 
-export const createUserAPI = async (uuid: string, ai: string, apiKey: string): Promise<void> => {
+export const createAPI = async (uuid: string, ai: string, apiKey: string): Promise<void> => {
   const conn = await pool.getConnection();
   try {
     // 기존 레코드 조회

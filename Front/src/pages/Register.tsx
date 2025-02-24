@@ -1,9 +1,14 @@
-import { InputWrapper, Input, Button, Wrapper, Form, IconWrapper, P, Container, StyledLink } from "@styles/AuthStyles";
-import { FaUser, FaEnvelope, FaIdCard, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
-import { useRegisterForm } from "@hooks/UseAuthForm";
+import { InputWrapper, Input, Button, Wrapper, Form, IconWrapper, Container, StyledLink } from "@styles/AuthStyles";
+import { FaUser, FaEnvelope, FaIdCard } from "react-icons/fa";
+import { useRegisterForm } from "@src/hooks/UseAuthForm";
+import PasswordInput, { PasswordForm } from "@src/components/Password";
 
 export default function Register() {
-  const { name, setName, email, setEmail, id, setId, password, setPassword, rePassword, setRePassword, error, checkPw, handleSubmit, showPassword, setShowPassword, showRePassword, setShowRePassword } = useRegisterForm();
+  const { name, setName, email, setEmail, id, setId, 
+          password, setPassword, showPassword, setShowPassword,
+          rePassword, setRePassword, showRePassword, setShowRePassword,
+          isValPw, isCfPw, handleSubmit 
+        } = useRegisterForm();
 
   return (
     <Wrapper>
@@ -25,25 +30,28 @@ export default function Register() {
             <Input type="text" placeholder="아이디" value={id} onChange={(e) => setId(e.target.value)} required />
           </InputWrapper>
           
-          <InputWrapper>
-            <IconWrapper><FaLock /></IconWrapper>
-            <Input type={showPassword ? "text" : "password"} placeholder="비밀번호" value={password} onChange={(e) => setPassword(e.target.value)} required />
-            <IconWrapper onClick={() => setShowPassword(!showPassword)}>
-              {showPassword ? <FaEyeSlash /> : <FaEye />}
-            </IconWrapper>
-          </InputWrapper>
-          
-          <InputWrapper>
-            <IconWrapper><FaLock /></IconWrapper>
-            <Input type={showRePassword ? "text" : "password"} placeholder="비밀번호 확인" value={rePassword} onChange={(e) => setRePassword(e.target.value)} required />
-            <IconWrapper onClick={() => setShowRePassword(!showRePassword)}>
-              {showRePassword ? <FaEyeSlash /> : <FaEye />}
-            </IconWrapper>
-          </InputWrapper>
-          {checkPw && <P>{checkPw}</P>}
+          <PasswordInput 
+            password={password} 
+            setPassword={setPassword} 
+            showPassword={showPassword} 
+            setShowPassword={setShowPassword} 
+            placeholder="비밀번호"
+          />
+
+          <PasswordInput 
+            password={rePassword} 
+            setPassword={setRePassword} 
+            showPassword={showRePassword} 
+            setShowPassword={setShowRePassword} 
+            placeholder="비밀번호 확인"
+          />
           <Button type="submit">회원가입</Button>
         </Form>
-        {error && <P>{error}</P>}
+        <PasswordForm
+          password= {password}
+          isValPw = {isValPw}
+          isCfPw = {isCfPw}
+        />
         <p>
           계정이 있으신가요? <StyledLink to="/login">로그인</StyledLink>
         </p>

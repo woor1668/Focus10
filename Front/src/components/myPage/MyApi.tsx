@@ -1,6 +1,5 @@
-import { ApiWrapper, Button, H, HeaderRow, Input, InputWrapper, ToggleBall, ToggleSwitch } from "@styles/MyPageStyles";
-import { useMyApi } from "@hooks/UseMyPage";
-import { P } from "@styles/AuthStyles";
+import { ApiWrapper, H, P, HeaderRow, Input, InputWrapper, ToggleBall, ToggleSwitch, ApiButton } from "@styles/MyPageStyles";
+import { useMyApi } from "@src/hooks/UseMyPage";
 
 interface MyApiProps {
   title: string;
@@ -34,7 +33,7 @@ export default function MyApi({ title, activeApi, setActiveApi }: MyApiProps) {
           onChange={(e) => setApiKey(e.target.value)}
           onKeyDown={handleKeyDown}
         />
-        <Button onClick={handleSave}>Save API</Button>
+        <ApiButton onClick={handleSave}>Save API</ApiButton>
       </InputWrapper>
       {err && <P style={{ color: "red" }}>{err}</P>}
     </ApiWrapper>

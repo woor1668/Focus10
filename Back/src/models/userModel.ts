@@ -2,9 +2,7 @@ import pool from "@config/db";
 
 export interface User {
   uuid: string;
-  id?: number;
-  email?: string;
-  password: string;
+  lang: string;
 }
 
 export const findUserByEmail = async (email: string): Promise<User | null> => {

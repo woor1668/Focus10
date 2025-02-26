@@ -1,5 +1,4 @@
-import Navbar from '@components/Navbar';
-import { Container, Wrapper } from '@styles/HomeStyles';
+import { Container } from '@styles/HomeStyles';
 import { Section, SectionHeader, Content } from '@styles/MyPageStyles';
 import MyInfo from '@components/myPage/MyInfo';
 import MyApi from '@components/myPage/MyApi';
@@ -30,8 +29,6 @@ export default function MyPage() {
   }, [showRecords]);
 
   return (
-    <Wrapper>
-      <Navbar />
       <Container>
         <h2>My Page</h2>
 
@@ -67,6 +64,5 @@ export default function MyPage() {
           </Content>
         </Section>
       </Container>
-    </Wrapper>
   );
 }

@@ -1,6 +1,7 @@
 import { api } from "./Api";
 interface AuthResponse {
   token: string;
+  lang: string;
 }
 
 // 회원가입 API
@@ -28,6 +29,7 @@ export const loginUser = async (eid: string, pw: string) => {
     });
     if (response.data) {
       localStorage.setItem("token", response.data.token);
+      localStorage.setItem("lang", response.data.lang);
     }
     return response.data;
   } catch (error) {

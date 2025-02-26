@@ -3,8 +3,9 @@ import styled from "styled-components";
 import Login from '@pages/Login'
 import Register from '@pages/Register';
 import Home from '@pages/Home';
+import Main from "@pages/Main";
 import MyPage from '@pages/MyPage';
-import Word from '@pages/WordWriting';
+import Word from '@src/pages/Word';
 import Speak from '@pages/Speaking';
 import { getAuth } from "@services/AuthService";
 import { PopupProvider } from "@components/Popup";
@@ -41,15 +42,12 @@ const router = createBrowserRouter([
       </ProtectedRoute>
     ),
     children: [
+      // { path:"/notice/:id", element:<Notice />},
+      { path: "", element: <Main /> },
       { path: "word", element: <Word /> },
       { path: "speak", element: <Speak /> },
+      { path: "my", element: <MyPage /> },
     ],
-  },
-  { path: "/my", 
-    element:       
-      <ProtectedRoute>
-        <MyPage />
-      </ProtectedRoute> 
   },
 ]);
 

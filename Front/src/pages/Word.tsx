@@ -1,7 +1,6 @@
 // src/pages/WordWriting.tsx
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Navbar from '../components/Navbar';
 
 const Container = styled.div`
   padding: 20px;
@@ -18,7 +17,7 @@ const Button = styled.button`
   padding: 8px 16px;
 `;
 
-const WordWriting: React.FC = () => {
+export default function Word() {
   const [word, setWord] = useState('');
   const [response, setResponse] = useState('');
 
@@ -32,21 +31,16 @@ const WordWriting: React.FC = () => {
   };
 
   return (
-    <div>
-      <Navbar />
-      <Container>
-        <h2>단어쓰기 (Word Memorization)</h2>
-        <Input
-          type="text"
-          placeholder="Enter a word"
-          value={word}
-          onChange={(e) => setWord(e.target.value)}
-        />
-        <Button onClick={handleCheckWord}>Check Word</Button>
-        {response && <p>{response}</p>}
-      </Container>
-    </div>
+    <Container>
+      <h2>단어쓰기 (Word Memorization)</h2>
+      <Input
+        type="text"
+        placeholder="Enter a word"
+        value={word}
+        onChange={(e) => setWord(e.target.value)}
+      />
+      <Button onClick={handleCheckWord}>Check Word</Button>
+      {response && <p>{response}</p>}
+    </Container>
   );
 };
-
-export default WordWriting;

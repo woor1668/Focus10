@@ -1,7 +1,6 @@
 // src/pages/Speaking.tsx
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Navbar from '../components/Navbar';
 
 const Container = styled.div`
   padding: 20px;
@@ -18,7 +17,7 @@ const Button = styled.button`
   padding: 8px 16px;
 `;
 
-const Speaking: React.FC = () => {
+export default function Speaking() {
   const [phrase, setPhrase] = useState('');
   const [feedback, setFeedback] = useState('');
 
@@ -32,21 +31,16 @@ const Speaking: React.FC = () => {
   };
 
   return (
-    <div>
-      <Navbar />
-      <Container>
-        <h2>말하기 (Pronunciation Check)</h2>
-        <Input
-          type="text"
-          placeholder="Enter phrase for pronunciation check"
-          value={phrase}
-          onChange={(e) => setPhrase(e.target.value)}
-        />
-        <Button onClick={handleCheckPronunciation}>Check Pronunciation</Button>
-        {feedback && <p>{feedback}</p>}
-      </Container>
-    </div>
+    <Container>
+      <h2>말하기 (Pronunciation Check)</h2>
+      <Input
+        type="text"
+        placeholder="Enter phrase for pronunciation check"
+        value={phrase}
+        onChange={(e) => setPhrase(e.target.value)}
+      />
+      <Button onClick={handleCheckPronunciation}>Check Pronunciation</Button>
+      {feedback && <p>{feedback}</p>}
+    </Container>
   );
 };
-
-export default Speaking;

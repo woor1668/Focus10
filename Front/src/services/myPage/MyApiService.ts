@@ -60,3 +60,13 @@ export const toggleChange = async (ai: string) => {
     throw error;
   }
 }
+
+export const selectWord = async() =>  {
+  try{
+    // const apiKey = await api.post<ApiResponse>("/myApi/getApiKey", {
+      
+    // });
+  }catch (error) {
+    console.error("create Error:", error);
+  }
+}

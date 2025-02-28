@@ -1,5 +1,6 @@
 // src/pages/WordWriting.tsx
-import React, { useState } from 'react';
+import { selectWord } from '@services/myPage/MyApiService';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -20,6 +21,10 @@ const Button = styled.button`
 export default function Word() {
   const [word, setWord] = useState('');
   const [response, setResponse] = useState('');
+
+  useEffect(()=>{
+    selectWord();
+  },[]);
 
   const handleCheckWord = async () => {
     // OpenAI를 활용한 단어 암기 도움(데모용 시뮬레이션)

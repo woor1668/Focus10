@@ -1,35 +1,21 @@
 // src/pages/WordWriting.tsx
 import { selectWord } from '@services/myPage/MyApiService';
+import { Container } from '@styles/HomeStyles';
+import { ApiButton, ButtonDiv, InfoButton, Input, InputWrapper } from '@styles/MyPageStyles';
+import { Form, Header, Question, Sound, StickerButton, Strong, Text } from '@styles/WordStyles';
 import { useEffect, useState } from 'react';
-import styled from 'styled-components';
-
-const Container = styled.div`
-  padding: 20px;
-`;
-
-const Input = styled.input`
-  margin: 8px;
-  padding: 8px;
-  width: 300px;
-`;
-
-const Button = styled.button`
-  margin: 8px;
-  padding: 8px 16px;
-`;
 
 export default function Word() {
   const [word, setWord] = useState('');
+  const [isTest, setIsTest] = useState(false);
   const [response, setResponse] = useState('');
 
-  useEffect(()=>{
+  useEffect(() => {
     selectWord();
-  },[]);
+  }, []);
 
   const handleCheckWord = async () => {
-    // OpenAI를 활용한 단어 암기 도움(데모용 시뮬레이션)
     setResponse(`Simulated response for word: ${word}`);
-    // 공부 기록 저장 (데모용으로 localStorage 사용)
     const records = JSON.parse(localStorage.getItem('study_records') || '[]');
     records.push(`Word Writing: ${word}`);
     localStorage.setItem('study_records', JSON.stringify(records));
@@ -37,15 +23,37 @@ export default function Word() {
 
   return (
     <Container>
-      <h2>단어쓰기 (Word Memorization)</h2>
-      <Input
-        type="text"
-        placeholder="Enter a word"
-        value={word}
-        onChange={(e) => setWord(e.target.value)}
-      />
-      <Button onClick={handleCheckWord}>Check Word</Button>
-      {response && <p>{response}</p>}
+      <Form>
+        <Header>단어쓰기<br/>(Word Memorization)</Header>
+        <Text>
+          <Strong>text</Strong>
+          <sup><Sound /></sup>
+          <sub>단어</sub>
+        </Text>
+        <Question>
+          {!isTest ? (
+            <StickerButton onClick={() => setIsTest((prev) => !prev)}>Check</StickerButton>
+          ) : (
+            <>
+              <Strong>im text</Strong>
+              <InputWrapper>
+                <Input
+                  type="text"
+                  placeholder="Enter a word"
+                  value={word}
+                  onChange={(e) => setWord(e.target.value)}
+                />
+                <ApiButton onClick={handleCheckWord}>Check</ApiButton>
+              </InputWrapper>
+              {response && <p>{response}</p>}
+            </>
+          )}
+        </Question>
+        <ButtonDiv>
+          <InfoButton onClick={handleCheckWord}>Prev</InfoButton>
+          <InfoButton onClick={handleCheckWord}>Next</InfoButton>
+        </ButtonDiv>
+      </Form>
     </Container>
   );
-};
+}

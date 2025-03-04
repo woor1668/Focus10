@@ -18,6 +18,7 @@ export const Text = styled.div`
 
 export const Strong = styled.strong`
     font-size: 1.7em;
+    margin-right: 3px;
 `;
 
 export const Sound = styled(AiOutlineSound)`
@@ -33,11 +34,9 @@ export const Question = styled.div`
     display: flex;
     flex-direction: column;
     gap: 5px;
-    /* width: 100%; */
-    align-items: center;
-    text-align: center;
-    min-height: 90px;
     padding: 15px;
+    height: 200px;
+    justify-content: center;
 `
 
 export const Button = styled.button`
@@ -52,16 +51,16 @@ export const ButtonForm = styled.div`
 
 export const StickerButton = styled.button`
   position: relative;
-  height: 100px;
-  width: 200px;
+  height: 200px;
+  width: 400px;
   background-color: #444;
   background: linear-gradient(135deg, transparent 28px, #444 0);
   border: none;
   font-size: 18px;
   font-weight: bold;
   cursor: pointer;
-  overflow: hidden;
-  transition: ease-in-out 0.3s;
+  overflow: hidden;  
+  transition: transform 0.3s, background 0.3s;
 
   &::before {
     content: "";
@@ -84,3 +83,27 @@ export const StickerButton = styled.button`
   }
 `;
 
+// export const StickerButton = styled.button`
+//   position: relative;
+//   height: 200px;
+//   width: 400px;
+//   background: #444;
+//   border: none;
+//   cursor: pointer;
+//   overflow: hidden;
+
+//   &::before {
+//     content: "";
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     border-top: 28px solid #444;
+//     border-right: 28px solid transparent;
+//     transition: border-top-width 0.3s, border-right-width 0.3s;
+//   }
+
+//   &:hover::before {
+//     border-top-width: 36px;
+//     border-right-width: 36px;
+//   }
+// `

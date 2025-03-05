@@ -1,4 +1,4 @@
-React + TypeScript 로그인 및 마이페이지 폼
+## React + TypeScript 로그인 및 마이페이지 폼
 
 프로젝트 개요
 
@@ -7,8 +7,8 @@ React + TypeScript 로그인 및 마이페이지 폼
 
 기술 스택
 
-React: UI 라이브러리
+1. **React**: UI 라이브러리
 
-TypeScript: 정적 타입 지원
+2. **TypeScript**: 정적 타입 지원
 
-Vite: 빠른 개발 환경 구성
+3. **Vite**: 빠른 개발 환경 구성
